@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Chamil Jay&#39;s Tech Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Chamil Jay&#39;s Tech Blog">
+<meta property="og:url" content="http://chamillj.github.io/index.html">
+<meta property="og:site_name" content="Chamil Jay&#39;s Tech Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chamil Jay&#39;s Tech Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="Chamil Jay&#39;s Tech Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Chamil Jay&#39;s Tech Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/aboutme">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chamillj.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Getting-Started-with-WebRTC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/10/Getting-Started-with-WebRTC/" class="article-date">
+  <time datetime="2017-11-10T03:38:26.000Z" itemprop="datePublished">2017-11-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/10/Getting-Started-with-WebRTC/">Getting Started with WebRTC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WebRTC is the API for browser-browser realtime communication. This guide explains how to setup a simple video chat between two browser sessions. Note that this guide is written assuming Chrome/Chroimum as the browser. Therefore, vendor prefixes might be required if you are planning to use another web browser.</p>
+<p>WebRTC facilitates real-time media flows between browsers. However, it does not handle the pre-signalling that is required before a media session is established. For that we need to use a different mechanism such as socket communication through a NodeJS server. Moreover, you might require services such as STUN/TURN to enable NAT traversal. This guide does not cover those aspects.</p>
+<p>In terms of WebRTC signalling, <a href="http://stackoverflow.com/questions/15484729/why-doesnt-onicecandidate-work" target="_blank" rel="external">this</a> answer in stackoverflow provides an excellant explanation. Quoting from the same, the signaling flow when two PeerConnections in the same browser window (adding of MediaStreams omitted to focus on the signaling)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pc1, pc2, offer, answer;</span><br><span class="line"></span><br><span class="line">pc1 = <span class="keyword">new</span> webkitRTCPeerConnection(options);</span><br><span class="line">pc2 = <span class="keyword">new</span> webkitRTCPeerConnection(options);</span><br><span class="line"></span><br><span class="line">pc1.onicecandidate = <span class="function"><span class="keyword">function</span>(<span class="params">candidate</span>) </span>&#123;</span><br><span class="line">  pc2.addIceCandidate(candidate);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">pc2.onicecandidate = <span class="function"><span class="keyword">function</span>(<span class="params">candidate</span>) </span>&#123;</span><br><span class="line">  pc1.addIceCandidate(candidate);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">pc1.createOffer(onOfferCreated, onError);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onError</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.alert(err.message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onOfferCreated</span>(<span class="params">description</span>) </span>&#123;</span><br><span class="line">  offer = description;</span><br><span class="line">  pc1.setLocalDescription(offer, onPc1LocalDescriptionSet, onError);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onPc1LocalDescriptionSet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// after this function returns, pc1 will start firing icecandidate events</span></span><br><span class="line">  pc2.setRemoteDescription(offer, onPc2RemoteDescriptionSet, onError);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onPc2RemoteDescriptionSet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  pc2.createAnswer(onAnswerCreated, onError);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onAnswerCreated</span>(<span class="params">description</span>) </span>&#123;</span><br><span class="line">  answer = description;</span><br><span class="line">  pc2.setLocalDescription(answer, onPc2LocalDescriptionSet, onError);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onPc2LocalDescriptionSet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// after this function returns, you'll start getting icecandidate events on pc2</span></span><br><span class="line">  pc1.setRemoteDescription(answer, onPc1RemoteDescriptionSet, onError);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onPc1RemoteDescriptionSet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.alert(<span class="string">'Yay, we finished signaling offers and answers'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>On the other-hand, when two peers are in different browsers, the media and connection related information need to be communicated between these browsers via a separate signaling channel. As WebRTC does not provide a way of facilitating such signaling channel we can use a method of our choice, and this guide uses nodeJS and WebSocket based channel.</p>
+<p>Let’s create a signaling channel. The code for back-end nodejs server is not given here but its a simple server that broadcasts all the messages to all the connected clients. The following code is for the client side.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createSignalChanel = <span class="function"><span class="keyword">function</span> (<span class="params">connectionString</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> socket = io.connect(connectionString) ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        send: <span class="function"><span class="keyword">function</span>(<span class="params">event, data</span>)</span>&#123;</span><br><span class="line">            socket.emit(data);</span><br><span class="line">        &#125;,</span><br><span class="line">        disconnect: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            socket.emit(<span class="string">'bye'</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        listen: <span class="function"><span class="keyword">function</span>(<span class="params">event, callback</span>)</span>&#123;</span><br><span class="line">            socket.on(event,callback)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+<p>Now you can create the signaling channel by</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signallingChannel = createSignalChanel(<span class="string">"localhost:3000"</span>) ;</span><br></pre></td></tr></table></figure>
+<p>Now let’s create the P2P connections. I have written the following function that can be used to create a P2Pconnection object easily.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createP2PObject = <span class="function"><span class="keyword">function</span>(<span class="params">myID, signallingChannel</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//id is a unique identifier for the P2P object</span></span><br><span class="line">    <span class="keyword">var</span> id = myID ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> PC = <span class="keyword">new</span> RTCPeerConnection(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//This is the signalling channel that we have created earlier</span></span><br><span class="line">    <span class="keyword">var</span> channel = signallingChannel ;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setLocalDescandSend</span>(<span class="params">desc</span>)</span>&#123;</span><br><span class="line">        PC.setLocalDescription(desc);</span><br><span class="line">        <span class="comment">//send media information to remote peer</span></span><br><span class="line">        channel.send(<span class="string">'rtc'</span>,&#123;<span class="attr">id</span>:id, <span class="attr">data</span>:desc&#125;) ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleError</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//a error handling code here</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">answer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> sdpConstraints = &#123;<span class="string">'mandatory'</span>: &#123;</span><br><span class="line">            <span class="string">'OfferToReceiveAudio'</span>:<span class="literal">true</span>,</span><br><span class="line">            <span class="string">'OfferToReceiveVideo'</span>:<span class="literal">true</span> &#125;&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            PC.createAnswer(<span class="function"><span class="keyword">function</span> (<span class="params">sdp</span>) </span>&#123;</span><br><span class="line">                PC.setLocalDescription(sdp,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"set local done"</span>);</span><br><span class="line">                    channel.send(&#123;<span class="attr">id</span>:id, <span class="attr">data</span>:sdp&#125;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;, <span class="literal">null</span>, sdpConstraints);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(e.message)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="comment">//getter for ID</span></span><br><span class="line">        getID: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> id ;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        setoniceCandidate: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            PC.onicecandidate = <span class="function"><span class="keyword">function</span>(<span class="params">candidate</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (event.candidate) &#123;</span><br><span class="line">                    channel.send(<span class="string">'rtc'</span>, &#123;<span class="attr">id</span>:id, <span class="attr">data</span>:&#123;</span><br><span class="line">                        type: <span class="string">'candidate'</span>,</span><br><span class="line">                        label: event.candidate.sdpMLineIndex,</span><br><span class="line">                        id: event.candidate.sdpMid,</span><br><span class="line">                        candidate: event.candidate.candidate&#125;&#125;) ;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; ;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//this is called when calling the remote peer</span></span><br><span class="line">        createOffer: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            PC.createOffer(setLocalDescandSend,handleError);</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//this is how you add a media stream to the media channel</span></span><br><span class="line">        addStream: <span class="function"><span class="keyword">function</span>(<span class="params">stream</span>)</span>&#123;</span><br><span class="line">            PC.addStream(stream);</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//PC.onaddstream is called when media is added to the channel from the remote side</span></span><br><span class="line">        <span class="comment">//the video is the video element to display the media stream</span></span><br><span class="line">        setonAddStream: <span class="function"><span class="keyword">function</span>(<span class="params">video</span>)</span>&#123;</span><br><span class="line">            PC.onaddstream = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">                video.src = <span class="built_in">window</span>.URL.createObjectURL(event.stream);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//this is called when either offer or answer recived. If offer we should answer the call</span></span><br><span class="line">        setRemoteDesc: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            PC.setRemoteDescription(<span class="keyword">new</span> RTCSessionDescription(data),<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">               <span class="keyword">if</span>(data.type===<span class="string">'offer'</span>)&#123;</span><br><span class="line">                   answer()</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;)            </span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//this is called when candidate message is recived</span></span><br><span class="line">        addIceCandidate: <span class="function"><span class="keyword">function</span>(<span class="params">candidate</span>)</span>&#123;</span><br><span class="line">            PC.addIceCandidate(<span class="keyword">new</span> RTCIceCandidate(&#123;</span><br><span class="line">                sdpMLineIndex: candidate.label,</span><br><span class="line">                candidate: candidate.candidate</span><br><span class="line">            &#125;));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now you can create a P2P object by and make a call by</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PCon = createP2PObject(myId,signallingChannel) ;</span><br><span class="line">PCon.setoniceCandidate();</span><br><span class="line">PCon.setonAddStream(video);</span><br><span class="line"></span><br><span class="line"><span class="comment">//add stream should be called only after you have a media stream ready, for example after calling getUserMedia()</span></span><br><span class="line">PCon.addStream(localStream);</span><br><span class="line"></span><br><span class="line"><span class="comment">//If you are the callee you should do this</span></span><br><span class="line">PCon.createOffer();</span><br></pre></td></tr></table></figure>
+<p>You have to also instruct the signaling channel to listen to incoming messages,</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">signallingChannel.listen(<span class="string">'webrtc'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = <span class="built_in">Number</span>(message.id) ;</span><br><span class="line">    <span class="keyword">var</span> data = message.data ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (data.type === <span class="string">'offer'</span>) &#123;</span><br><span class="line">        PCon.setRemoteDesc(data) ;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.type === <span class="string">'answer'</span>) &#123;</span><br><span class="line">        PCon.setRemoteDesc(data) ;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.type === <span class="string">'candidate'</span>) &#123;</span><br><span class="line">        PCon.addIceCandidate(data);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data === <span class="string">'bye'</span>) &#123;</span><br><span class="line">        <span class="comment">//hangup();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;) ;</span><br></pre></td></tr></table></figure>
+<p>If you want to use the local webcam and microphone, you have to use getUserMedia function. the following function allow you to easily do that. You may have to adjust the constraints object to suit your requirements</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        startButton.disabled = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> constraints = &#123;<span class="attr">video</span>: &#123;</span><br><span class="line">            mandatory: &#123;</span><br><span class="line">                minWidth: <span class="number">1280</span>,</span><br><span class="line">                minHeight: <span class="number">720</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;&#125; ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//for screen sharing</span></span><br><span class="line"><span class="comment">//      var constraints = &#123;video: &#123;</span></span><br><span class="line"><span class="comment">//                    mandatory: &#123;</span></span><br><span class="line"><span class="comment">//                        chromeMediaSource: 'screen',</span></span><br><span class="line"><span class="comment">//                        maxWidth: 1920,</span></span><br><span class="line"><span class="comment">//                        maxHeight: 1080</span></span><br><span class="line"><span class="comment">//                    &#125;</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//note that you have to define the callback function</span></span><br><span class="line">        getUserMedia(constraints, callback,</span><br><span class="line">            <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"getUserMedia error: "</span>, error);</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chamillj.github.io/2017/11/10/Getting-Started-with-WebRTC/" data-id="cj9tcraih0000d1lponyfd5rh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/11/10/Getting-Started-with-WebRTC/">Getting Started with WebRTC</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Chamil Jayasundara<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/aboutme" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
