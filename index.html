@@ -239,6 +239,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chamillj.github.io/2016/11/14/samba/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chamil Jayasundara">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chamil Jay's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/14/samba/" itemprop="url">Installing and Configuring Samba for Ubuntu</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-14T14:10:31+11:00">
+                2016-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>I mostly use Linux and bit of MAC. But for some reason I had to use Windows PC and I had to transfer files between a Linux server and the Windows PC. Out of all possibilities I thought to use Samba for this purpose. However, I could not find a one-stop guide to know how to get a basic Samba setup up and running quickly. These are the steps that I followed for the reference of any interested reader.</p>
+<p>First we need to install samba<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sudo apt-get install samba</span></span><br></pre></td></tr></table></figure></p>
+<p>Now setup a password for the users<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sudo smbpasswd -a &lt;username&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>In order to configure we have to edit /etc/samba/smb.conf file</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&lt;folder_name&gt;]</span><br><span class="line">path = /home/&lt;user_name&gt;/&lt;folder_name&gt;</span><br><span class="line">available = yes</span><br><span class="line">valid users = &lt;user_name&gt;</span><br><span class="line"><span class="built_in">read</span> only = no</span><br><span class="line">browseable = yes</span><br><span class="line">public = no</span><br><span class="line">writable = yes</span><br></pre></td></tr></table></figure>
+<p>Next step is to restart Samba to make configuration effective<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo restart smbd</span><br></pre></td></tr></table></figure></p>
+<p>Now the Samba service is up and running and configured for the user. You can use the sambaclient on Linux to list and connect to this Samba share.</p>
+<p>In order to list public Samba shares<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient -L //server -U usear</span><br></pre></td></tr></table></figure></p>
+<p>To connect to the Samba share<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient //server/share -U user</span><br></pre></td></tr></table></figure></p>
+<p>In order to mount the Samba share<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t cifs //myserver_ip_address/myshare ~/mnt -o username=samb_user,password=password,noexec</span><br></pre></td></tr></table></figure></p>
+<p>Alternatively we can add the share to the fstab so that the share will be connected on boot. Add the following line to /etc/fstab<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//server/share    /mountpoint   cifs    username=yourusername,password=youpassword,iocharset=utf8,uid=1000,x-systemd.automount,nofail,noauto     0       0</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://chamillj.github.io/2016/10/10/Getting-Started-with-WebRTC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -408,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

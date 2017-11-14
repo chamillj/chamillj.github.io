@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chamil Jay&#39;s Tech Blog">
-<meta property="og:url" content="http://chamillj.github.io/archives/index.html">
+<meta name="description" content="I mostly use Linux and bit of MAC. But for some reason I had to use Windows PC and I had to transfer files between a Linux server and the Windows PC. Out of all possibilities I thought to use Samba fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Installing and Configuring Samba for Ubuntu">
+<meta property="og:url" content="http://chamillj.github.io/2016/11/14/samba/index.html">
 <meta property="og:site_name" content="Chamil Jay&#39;s Tech Blog">
+<meta property="og:description" content="I mostly use Linux and bit of MAC. But for some reason I had to use Windows PC and I had to transfer files between a Linux server and the Windows PC. Out of all possibilities I thought to use Samba fo">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-14T03:32:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chamil Jay&#39;s Tech Blog">
+<meta name="twitter:title" content="Installing and Configuring Samba for Ubuntu">
+<meta name="twitter:description" content="I mostly use Linux and bit of MAC. But for some reason I had to use Windows PC and I had to transfer files between a Linux server and the Windows PC. Out of all possibilities I thought to use Samba fo">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://chamillj.github.io/archives/"/>
+  <link rel="canonical" href="http://chamillj.github.io/2016/11/14/samba/"/>
 
 
 
 
 
-  <title>Archive | Chamil Jay's Tech Blog</title>
+  <title>Installing and Configuring Samba for Ubuntu | Chamil Jay's Tech Blog</title>
   
 
 
@@ -140,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,111 +228,151 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 2 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chamillj.github.io/2016/11/14/samba/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chamil Jayasundara">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chamil Jay's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/11/14/samba/" itemprop="url">
-              
-                <span itemprop="name">Installing and Configuring Samba for Ubuntu</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Installing and Configuring Samba for Ubuntu</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-14T14:10:31+11:00"
-              content="2016-11-14" >
-          11-14
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-14T14:10:31+11:00">
+                2016-11-14
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/10/Getting-Started-with-WebRTC/" itemprop="url">
-              
-                <span itemprop="name">Getting Started with WebRTC</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-10T14:38:26+11:00"
-              content="2016-10-10" >
-          10-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p>I mostly use Linux and bit of MAC. But for some reason I had to use Windows PC and I had to transfer files between a Linux server and the Windows PC. Out of all possibilities I thought to use Samba for this purpose. However, I could not find a one-stop guide to know how to get a basic Samba setup up and running quickly. These are the steps that I followed for the reference of any interested reader.</p>
+<p>First we need to install samba<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sudo apt-get install samba</span></span><br></pre></td></tr></table></figure></p>
+<p>Now setup a password for the users<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sudo smbpasswd -a &lt;username&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>In order to configure we have to edit /etc/samba/smb.conf file</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&lt;folder_name&gt;]</span><br><span class="line">path = /home/&lt;user_name&gt;/&lt;folder_name&gt;</span><br><span class="line">available = yes</span><br><span class="line">valid users = &lt;user_name&gt;</span><br><span class="line"><span class="built_in">read</span> only = no</span><br><span class="line">browseable = yes</span><br><span class="line">public = no</span><br><span class="line">writable = yes</span><br></pre></td></tr></table></figure>
+<p>Next step is to restart Samba to make configuration effective<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo restart smbd</span><br></pre></td></tr></table></figure></p>
+<p>Now the Samba service is up and running and configured for the user. You can use the sambaclient on Linux to list and connect to this Samba share.</p>
+<p>In order to list public Samba shares<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient -L //server -U usear</span><br></pre></td></tr></table></figure></p>
+<p>To connect to the Samba share<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient //server/share -U user</span><br></pre></td></tr></table></figure></p>
+<p>In order to mount the Samba share<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t cifs //myserver_ip_address/myshare ~/mnt -o username=samb_user,password=password,noexec</span><br></pre></td></tr></table></figure></p>
+<p>Alternatively we can add the share to the fstab so that the share will be connected on boot. Add the following line to /etc/fstab<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//server/share    /mountpoint   cifs    username=yourusername,password=youpassword,iocharset=utf8,uid=1000,x-systemd.automount,nofail,noauto     0       0</span><br></pre></td></tr></table></figure></p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/Getting-Started-with-WebRTC/" rel="next" title="Getting Started with WebRTC">
+                <i class="fa fa-chevron-left"></i> Getting Started with WebRTC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -336,6 +380,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -528,6 +576,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
